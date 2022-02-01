@@ -1,6 +1,6 @@
 #!/usr/bin/env roseus
 
-(load "package://roseus_lock/euslisp/roseus_lock.l")
+(load "package://ros_lock/euslisp/ros_lock.l")
 
 
 (ros::roseus "sample_client_roseus")

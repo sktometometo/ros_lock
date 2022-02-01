@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(roseus_lock)
+project(ros_lock)
 
 find_package(catkin REQUIRED
     roscpp
@@ -36,7 +36,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/roseus_lock.cpp
+#   src/${PROJECT_NAME}/ros_lock.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -47,7 +47,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/roseus_lock_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/ros_lock_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -111,7 +111,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_roseus_lock.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_ros_lock.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

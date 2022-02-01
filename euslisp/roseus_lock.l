@@ -1,4 +1,4 @@
-(ros::load-ros-manifest "roseus_lock")
+(ros::load-ros-manifest "ros_lock")
 
 (defclass ros-lock
   :super propertied-object
@@ -21,7 +21,7 @@
   (:acquire (&key
                 (timeout -1))
     (let (req res)
-      (setq req (instance roseus_lock::Acquire :init))
+      (setq req (instance ros_lock::Acquire :init))
       (send req :lock-name lock-name)
       (send req :client-name client-name)
       (send req :timeout timeout)
@@ -30,7 +30,7 @@
 
   (:release ()
     (let (req res)
-      (setq req (instance roseus_lock::Release :init))
+      (setq req (instance ros_lock::Release :init))
       (send req :lock-name lock-name)
       (send req :client-name client-name)
       (setq res (ros::service-call service-name-release req t))

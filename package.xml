@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>roseus_lock</name>
+  <name>ros_lock</name>
   <version>0.0.0</version>
-  <description>The roseus_lock package</description>
+  <description>The ros_lock package</description>
 
   <maintainer email="sktometometo@gmail.com">sktometometo</maintainer>
 

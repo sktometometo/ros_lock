@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from roseus_lock.lock_manager import LockManager
+from ros_lock.lock_manager import LockManager
 
 
 if __name__ == '__main__':

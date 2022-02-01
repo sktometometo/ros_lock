@@ -1,10 +1,10 @@
 import threading
 
 import rospy
-from roseus_lock.srv import Acquire
-from roseus_lock.srv import AcquireResponse
-from roseus_lock.srv import Release
-from roseus_lock.srv import ReleaseResponse
+from ros_lock.srv import Acquire
+from ros_lock.srv import AcquireResponse
+from ros_lock.srv import Release
+from ros_lock.srv import ReleaseResponse
 
 
 class LockManager(object):
