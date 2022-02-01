@@ -7,3 +7,9 @@
 
 (setq *ros-lock* (instance ros-lock :init "sample"))
 
+(dotimes (i 10)
+  (send *ros-lock* :acquire)
+  (ros::ros-info "hoge")
+  (ros::ros-info "hoge")
+  (send *ros-lock* :release)
+  )
