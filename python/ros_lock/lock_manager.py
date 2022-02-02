@@ -27,7 +27,7 @@ class LockManager(object):
 
         # if specified lock is acquired
         # wait until lock is released
-        ret = self.lock_list[srv.lock_name].acquire(timeout=srv.timeout)
+        ret = self.lock_list[srv.lock_name].acquire(srv.timeout)
         with self.lock_for_client_names:
             if ret:
                 self.client_names[srv.lock_name] = srv.client_name

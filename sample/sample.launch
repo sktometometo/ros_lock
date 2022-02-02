@@ -1,0 +1,36 @@
+<launch>
+    <arg name="num_iteration" default="10"/>
+    <arg name="use_ros_lock" default="true"/>
+
+    <node
+        pkg="ros_lock"
+        type="lock_manager_node.py"
+        name="lock_manager"
+        />
+
+    <node
+        pkg="ros_lock"
+        type="sample_client_roseus.l"
+        name="sample_client_roseus"
+        output="screen"
+        required="true"
+        >
+        <rosparam subst_value="true">
+            num_iteration: $(arg num_iteration)
+            use_ros_lock: $(arg use_ros_lock)
+        </rosparam>
+    </node>
+
+    <node
+        pkg="ros_lock"
+        type="sample_client_rospy.py"
+        name="sample_client_rospy"
+        output="screen"
+        required="true"
+        >
+        <rosparam subst_value="true">
+            num_iteration: $(arg num_iteration)
+            use_ros_lock: $(arg use_ros_lock)
+        </rosparam>
+    </node>
+</launch>

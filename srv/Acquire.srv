@@ -1,6 +1,5 @@
 string lock_name
 string client_name
-duration timeout
+int32 timeout
 ---
 bool success
-string message
