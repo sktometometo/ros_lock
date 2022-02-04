@@ -16,6 +16,9 @@ if __name__ == '__main__':
 
     ros_lock = ROSLock('sample')
 
+    def lock_hook():
+        ros_lock.release()
+
     rate = rospy.Rate(10)
     if use_ros_lock:
         for i in range(num_iteration):
