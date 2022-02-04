@@ -15,9 +15,9 @@ class LockEntry(object):
         self.lock_name = lock_name
         self.client_name = client_name
 
-    def acquire(self):
+    def acquire(self, timeout):
 
-        return self.lock.acquire()
+        return self.lock.acquire(timeout=timeout)
 
     def release(self):
 
@@ -26,6 +26,13 @@ class LockEntry(object):
     def locked(self):
 
         return self.lock.locked()
+
+    def is_client_active(self):
+
+        if self.client_name is not None:
+            return ( '/' + self.client_name ) / rosnode.get_node_names()
+        else:
+            return False
 
 
 class LockManager(object):
@@ -91,3 +98,12 @@ class LockManager(object):
         rate = rospy.Rate(hz)
         while not rospy.is_shutdown():
             rate.sleep()
+            with self.lock_for_lock_list:
+                for lock_name in self.lock_list:
+                    if not self.lock_list[lock_name].is_client_active() \
+                            and self.lock_list[lock_name].locked():
+                        rospy.logwarn('Client {} for lock {} is not active. released.'.format(
+                                    self.lock_list[lock_name].client_name,
+                                    lock_name
+                                    ))
+                        self.lock_list[lock_name].release()

@@ -8,4 +8,4 @@ if __name__ == '__main__':
 
     rospy.init_node('lock_manager')
     node = LockManager()
-    rospy.spin()
+    node.spin()
