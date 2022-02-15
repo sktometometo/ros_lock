@@ -7,25 +7,25 @@
 
 (setq num-iteration (ros::get-param "~num_iteration" 10))
 (setq use-ros-lock (ros::get-param "~use_ros_lock" t))
+(setq duration-sleep (ros::get-param "~duration_sleep" 0.1))
 
 (unix:sleep 5)
 
 (setq *ros-lock* (instance ros-lock :init "sample"))
 
-(ros::rate 10)
 (if use-ros-lock
     (dotimes (i num-iteration)
-      (ros::sleep)
+      (unix:usleep (round (* 1000000 duration-sleep)))
       (send *ros-lock* :acquire)
-      (ros::ros-info "hoge ~A" i)
-      (ros::sleep)
-      (ros::ros-info "hoge ~A" i)
+      (ros::ros-info "start ~A th iteration" i)
+      (unix:usleep (round (* 1000000 duration-sleep)))
+      (ros::ros-info "stop ~A th iteration" i)
       (send *ros-lock* :release))
   (dotimes (i num-iteration)
-    (ros::sleep)
-    (ros::ros-info "hoge ~A" i)
-    (ros::sleep)
-    (ros::ros-info "hoge ~A" i))
+    (unix:usleep (round (* 1000000 duration-sleep)))
+    (ros::ros-info "start ~A th iteration" i)
+    (unix:usleep (round (* 1000000 duration-sleep)))
+    (ros::ros-info "stop ~A th iteration" i))
   )
 
 (exit)

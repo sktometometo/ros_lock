@@ -3,3 +3,4 @@ string client_name
 int32 timeout
 ---
 bool success
+string message

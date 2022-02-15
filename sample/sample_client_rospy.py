@@ -11,6 +11,7 @@ if __name__ == '__main__':
 
     num_iteration = rospy.get_param('~num_iteration', 10)
     use_ros_lock = rospy.get_param('~use_ros_lock', True)
+    duration_sleep = rospy.get_param('~duration_sleep', 0.1)
 
     rospy.sleep(5)
 
@@ -19,17 +20,16 @@ if __name__ == '__main__':
     def lock_hook():
         ros_lock.release()
 
-    rate = rospy.Rate(10)
     if use_ros_lock:
         for i in range(num_iteration):
-            rate.sleep()
+            rospy.sleep(duration_sleep)
             with ros_lock:
-                rospy.loginfo('fuga {}'.format(i))
-                rate.sleep()
-                rospy.loginfo('fuga {}'.format(i))
+                rospy.loginfo('start {} th iteration'.format(i))
+                rospy.sleep(duration_sleep)
+                rospy.loginfo('stop {} th iteration'.format(i))
     else:
         for i in range(num_iteration):
-            rate.sleep()
-            rospy.loginfo('fuga {}'.format(i))
-            rate.sleep()
-            rospy.loginfo('fuga {}'.format(i))
+            rospy.sleep(duration_sleep)
+            rospy.loginfo('start {} th iteration'.format(i))
+            rospy.sleep(duration_sleep)
+            rospy.loginfo('stop {} th iteration'.format(i))

@@ -2,3 +2,4 @@ string lock_name
 string client_name
 ---
 bool success
+string message
