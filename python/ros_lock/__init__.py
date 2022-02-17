@@ -4,6 +4,15 @@ from ros_lock.srv import Acquire
 from ros_lock.srv import AcquireRequest
 from ros_lock.srv import Release
 from ros_lock.srv import ReleaseRequest
+from contextlib import contextmanager
+
+
+@contextmanager
+def roslock_acquire(roslock, timeout=-1):
+    result = roslock.acquire(timeout=timeout)
+    yield result
+    if result:
+        roslock.release()
 
 
 class ROSLock(object):
@@ -20,6 +29,9 @@ class ROSLock(object):
         else:
             self.client_name = client_name
 
+        self.service_name_acquire = service_name_acquire
+        self.service_name_release = service_name_release
+
         self.srvclient_acquire = rospy.ServiceProxy(
             service_name_acquire,
             Acquire
@@ -28,6 +40,11 @@ class ROSLock(object):
             service_name_release,
             Release
         )
+
+    def wait_for_server(self, timeout=None):
+
+        rospy.wait_for_service(self.service_name_acquire, timeout=timeout)
+        rospy.wait_for_service(self.service_name_release, timeout=timeout)
 
     def acquire(self, timeout=-1):
 

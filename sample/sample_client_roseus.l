@@ -9,9 +9,8 @@
 (setq use-ros-lock (ros::get-param "~use_ros_lock" t))
 (setq duration-sleep (ros::get-param "~duration_sleep" 0.1))
 
-(unix:sleep 5)
-
 (setq *ros-lock* (instance ros-lock :init "sample"))
+(send *ros-lock* :wait-for-server)
 
 (if use-ros-lock
     (dotimes (i num-iteration)

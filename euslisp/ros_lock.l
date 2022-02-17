@@ -18,6 +18,17 @@
     (setq srvname-release service-name-release)
     )
 
+  (:wait-for-server (&optional (timeout nil))
+    (let (ret1 ret2)
+      (if timeout
+        (progn
+          (setq ret1 (ros::wait-for-service srvname-acquire timeout))
+          (setq ret2 (ros::wait-for-service srvname-release timeout)))
+        (progn
+          (setq ret1 (ros::wait-for-service srvname-acquire))
+          (setq ret2 (ros::wait-for-service srvname-release))))
+      (and ret1 ret2)))
+
   (:acquire (&key
                 (timeout -1))
     (let (req res)
