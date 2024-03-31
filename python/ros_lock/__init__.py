@@ -8,8 +8,8 @@ from contextlib import contextmanager
 
 
 @contextmanager
-def roslock_acquire(roslock, timeout=-1):
-    result = roslock.acquire(timeout=timeout)
+def roslock_acquire(roslock, timeout=-1, force=False):
+    result = roslock.acquire(timeout=timeout, force=force)
     yield result
     if result:
         roslock.release()
@@ -46,12 +46,13 @@ class ROSLock(object):
         rospy.wait_for_service(self.service_name_acquire, timeout=timeout)
         rospy.wait_for_service(self.service_name_release, timeout=timeout)
 
-    def acquire(self, timeout=-1):
+    def acquire(self, timeout=-1, force=False):
 
         req = AcquireRequest()
         req.lock_name = self.lock_name
         req.client_name = self.client_name
         req.timeout = timeout
+        req.force = force
         res = self.srvclient_acquire(req)
         return res.success
 

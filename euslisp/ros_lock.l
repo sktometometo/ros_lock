@@ -30,12 +30,14 @@
       (and ret1 ret2)))
 
   (:acquire (&key
-                (timeout -1))
+                (timeout -1)
+                (force nil))
     (let (req res)
       (setq req (instance ros_lock::AcquireRequest :init))
       (send req :lock_name lock-name)
       (send req :client_name client-name)
       (send req :timeout timeout)
+      (send req :force force)
       (setq res (ros::service-call srvname-acquire req t))
       (send res :success)))
 

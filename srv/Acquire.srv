@@ -1,6 +1,7 @@
 string lock_name
 string client_name
 int32 timeout
+bool force
 ---
 bool success
 string message

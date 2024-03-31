@@ -48,7 +48,7 @@ class LockManager(object):
         self.srv_release = rospy.Service(
             '~release', Release, self.handler_release)
 
-    def _acquire(self, lock_name, client_name, timeout):
+    def _acquire(self, lock_name, client_name, timeout, force):
 
         with self.lock_for_lock_list:
             if lock_name not in self.lock_list:
@@ -57,6 +57,8 @@ class LockManager(object):
 
         # if specified lock is acquired
         # wait until lock is released
+        if force and self.lock_list[lock_name].locked():
+            self.lock_list[lock_name].release()
         ret = self.lock_list[lock_name].acquire(timeout)
         if ret:
             with self.lock_for_lock_list:
@@ -86,7 +88,7 @@ class LockManager(object):
 
     def handler_acquire(self, srv):
 
-        success = self._acquire(srv.lock_name, srv.client_name, srv.timeout)
+        success = self._acquire(srv.lock_name, srv.client_name, srv.timeout, srv.force)
         res = AcquireResponse()
         res.success = success
         return res
